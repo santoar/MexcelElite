@@ -39,11 +39,9 @@
                 return; 
             }
 
-            // Naya Format: MEE/FDP/283/ ke sath random number
+            // Generate Certificate Number
             const randomNum = Math.floor(100000 + Math.random() * 900000); 
             const certNo = "MEE/FDP/283/" + randomNum;
-            
-            // Safe version for filename
             const safeCertNo = certNo.replace(/\//g, '-');
 
             const dateObj = new Date(rawDate);
@@ -60,16 +58,14 @@
             img.src = 'template.jpeg'; 
             
             img.onload = function() {
-                // Draw the clean template image
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // Setup text styling
                 ctx.fillStyle = '#112244'; 
 
-                // Print Certificate Number on Canvas
+                // 1. FIXED: Certificate Number ab white area mein print hoga (y: 280)
                 ctx.font = 'bold 35px serif';
                 ctx.textAlign = 'left';
-                ctx.fillText('Certificate No: ' + certNo, 100, 120);
+                ctx.fillText('Certificate No: ' + certNo, 120, 280); 
 
                 // Workshop Title
                 ctx.textAlign = 'center';
@@ -80,16 +76,16 @@
                 ctx.font = 'bold 85px serif';
                 ctx.fillText(name.toUpperCase(), 1000, 580);
 
-                // Bottom Date
+                // Bottom Left Date
                 ctx.font = '45px serif';
                 ctx.textAlign = 'left';
                 ctx.fillText(formattedDate, 100, 1165); 
                 
-                // Center Date
-                ctx.textAlign = 'center';
-                ctx.fillText(formattedDate, 1040, 905);
+                // 2. FIXED: Center wali date ko thoda right shift kiya (x: 1020)
+                ctx.textAlign = 'left'; 
+                ctx.fillText(formattedDate, 1020, 905);
 
-                // Download Process using the safe file name
+                // Download Process
                 const link = document.createElement('a');
                 link.download = `Cert_${safeCertNo}_${name.replace(/\s+/g, '_')}.png`; 
                 link.href = canvas.toDataURL('image/png', 1.0);
