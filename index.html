@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; text-align: center; padding: 50px; background-color: #e9ecef; }
+        .card { background: white; padding: 40px; border-radius: 15px; display: inline-block; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #004aad; }
+        h2 { color: #004aad; margin-bottom: 5px; }
+        p { color: #555; margin-bottom: 25px; font-style: italic; }
+        input { padding: 12px; margin: 10px; width: 320px; border: 1px solid #ddd; border-radius: 6px; display: block; margin-left: auto; margin-right: auto; font-size: 14px; box-sizing: border-box; }
+        button { padding: 12px 30px; background: #004aad; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; margin-top: 15px; }
+        button:hover { background: #003380; }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Workshop Certificate</h2>
+        <p>"Performance Analysis Using Excel and Power Query"</p>
+        
+        <input type="text" id="name" placeholder="Enter Participant Name">
+        
+        <input type="date" id="date">
+        
+        <button onclick="generateCertificate()">Download My Certificate</button>
+    </div>
+
+    <canvas id="certificateCanvas" width="2000" height="1420"></canvas>
+
+    <script>
+        function generateCertificate() {
+            const name = document.getElementById('name').value;
+            const rawDate = document.getElementById('date').value;
+            
+            if(!name || !rawDate) { 
+                alert("Please enter both Name and Date!"); 
+                return; 
+            }
+
+            // Date ko automatic format karne ka magic (e.g., 2026-03-28 se March 28, 2026 banayega)
+            const dateObj = new Date(rawDate);
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const canvas = document.getElementById('certificateCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            // Image file ka naam GitHub ke hisaab se
+            img.src = 'template.jpeg'; 
+            
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // 1. BLANKING (Purani details cover karna)
+                ctx.fillStyle = "white";
+                ctx.fillRect(700, 680, 600, 70); 
+                ctx.fillRect(160, 1180, 450, 80);
+                ctx.fillRect(940, 870, 380, 60);
+
+                // 2. TEXT LIKHNA
+                ctx.fillStyle = '#112244'; 
+                ctx.textAlign = 'center';
+
+                // Workshop Title
+                ctx.font = 'italic bold 55px Georgia, serif';
+                ctx.fillText('"Performance Analysis Using Excel and Power Query"', 1000, 725);
+
+                // Name
+                ctx.font = 'bold 85px serif';
+                ctx.fillText(name.toUpperCase(), 1000, 580);
+
+                // Date (Yahan automatically format hui date print hogi)
+                ctx.font = '45px serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(formattedDate, 240, 1235);
+                
+                ctx.textAlign = 'center';
+                ctx.fillText(formattedDate, 1130, 915);
+
+                // 3. DOWNLOAD KARNA
+                const link = document.createElement('a');
+                link.download = `Certificate_${name.replace(/\s+/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+            };
+            
+            img.onerror = function() {
+                alert("Error: 'template.jpg' file nahi mili. Check karein file ka naam same hai ya nahi.");
+            };
+        }
+    </script>
+</body>
+</html>
