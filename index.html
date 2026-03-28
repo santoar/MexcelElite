@@ -62,10 +62,10 @@
 
                 ctx.fillStyle = '#112244'; 
 
-                // 1. FIXED: Short form ("Cert. No:") aur aur left shift kiya (x: 80)
+                // Cert. No
                 ctx.font = 'bold 28px serif';
                 ctx.textAlign = 'left';
-                ctx.fillText('Cert. No: ' + certNo, 80, 360); 
+                ctx.fillText('Cert. No: ' + certNo, 80, 260); 
 
                 // Workshop Title
                 ctx.textAlign = 'center';
@@ -81,9 +81,10 @@
                 ctx.textAlign = 'left';
                 ctx.fillText(formattedDate, 100, 1165); 
                 
-                // 2. FIXED: Center date ko neeche laya (y: 920) aur center align maintain kiya
+                // CENTER DATE (FIXED: Font chhota kiya aur align kiya)
+                ctx.font = '32px serif'; 
                 ctx.textAlign = 'center'; 
-                ctx.fillText(formattedDate, 1060, 920);
+                ctx.fillText(formattedDate, 1060, 885);
 
                 // Download Process
                 const link = document.createElement('a');
