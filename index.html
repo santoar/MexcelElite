@@ -62,10 +62,10 @@
 
                 ctx.fillStyle = '#112244'; 
 
-                // 1. FIXED: Certificate Number ab white area mein print hoga (y: 280)
-                ctx.font = 'bold 35px serif';
+                // 1. Certificate Number ko neeche white area mein shift kiya (y: 360)
+                ctx.font = 'bold 30px serif';
                 ctx.textAlign = 'left';
-                ctx.fillText('Certificate No: ' + certNo, 120, 280); 
+                ctx.fillText('Certificate No: ' + certNo, 120, 360); 
 
                 // Workshop Title
                 ctx.textAlign = 'center';
@@ -81,9 +81,9 @@
                 ctx.textAlign = 'left';
                 ctx.fillText(formattedDate, 100, 1165); 
                 
-                // 2. FIXED: Center wali date ko thoda right shift kiya (x: 1020)
-                ctx.textAlign = 'left'; 
-                ctx.fillText(formattedDate, 1020, 905);
+                // 2. Center wali date ko line ke upar set kiya (x: 1100, y: 890)
+                ctx.textAlign = 'center'; 
+                ctx.fillText(formattedDate, 1100, 890);
 
                 // Download Process
                 const link = document.createElement('a');
