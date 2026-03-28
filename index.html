@@ -22,7 +22,6 @@
         <p>"Performance Analysis Using Excel and Power Query"</p>
         
         <input type="text" id="name" placeholder="Enter Participant Name">
-        
         <input type="text" id="date" placeholder="Please select date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
         
         <button onclick="generateCertificate()">Download My Certificate</button>
@@ -39,6 +38,13 @@
                 alert("Please enter both Name and Date!"); 
                 return; 
             }
+
+            // Naya Format: MEE/FDP/283/ ke sath random number
+            const randomNum = Math.floor(100000 + Math.random() * 900000); 
+            const certNo = "MEE/FDP/283/" + randomNum;
+            
+            // Safe version for filename
+            const safeCertNo = certNo.replace(/\//g, '-');
 
             const dateObj = new Date(rawDate);
             const formattedDate = dateObj.toLocaleDateString('en-US', {
@@ -59,9 +65,14 @@
 
                 // Setup text styling
                 ctx.fillStyle = '#112244'; 
-                ctx.textAlign = 'center';
+
+                // Print Certificate Number on Canvas
+                ctx.font = 'bold 35px serif';
+                ctx.textAlign = 'left';
+                ctx.fillText('Certificate No: ' + certNo, 100, 120);
 
                 // Workshop Title
+                ctx.textAlign = 'center';
                 ctx.font = 'italic bold 55px Georgia, serif';
                 ctx.fillText('"Performance Analysis Using Excel and Power Query"', 1000, 725);
 
@@ -78,9 +89,9 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(formattedDate, 1040, 905);
 
-                // Download Process
+                // Download Process using the safe file name
                 const link = document.createElement('a');
-                link.download = `Certificate_${name.replace(/\s+/g, '_')}.png`;
+                link.download = `Cert_${safeCertNo}_${name.replace(/\s+/g, '_')}.png`; 
                 link.href = canvas.toDataURL('image/png', 1.0);
                 link.click();
             };
