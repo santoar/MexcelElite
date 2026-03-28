@@ -62,10 +62,10 @@
 
                 ctx.fillStyle = '#112244'; 
 
-                // Cert. No
+                // 1. FIXED: Cert. No wapas safe white area me (y: 340)
                 ctx.font = 'bold 28px serif';
                 ctx.textAlign = 'left';
-                ctx.fillText('Cert. No: ' + certNo, 80, 260); 
+                ctx.fillText('Cert. No: ' + certNo, 80, 340); 
 
                 // Workshop Title
                 ctx.textAlign = 'center';
@@ -81,10 +81,10 @@
                 ctx.textAlign = 'left';
                 ctx.fillText(formattedDate, 100, 1165); 
                 
-                // CENTER DATE (FIXED: Font chhota kiya aur align kiya)
+                // 2. FIXED: Center date ko 5mm (20 pixels) neeche khiskaya (y: 905)
                 ctx.font = '32px serif'; 
                 ctx.textAlign = 'center'; 
-                ctx.fillText(formattedDate, 1060, 885);
+                ctx.fillText(formattedDate, 1060, 905);
 
                 // Download Process
                 const link = document.createElement('a');
