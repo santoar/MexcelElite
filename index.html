@@ -22,7 +22,8 @@
         <p>"Performance Analysis Using Excel and Power Query"</p>
         
         <input type="text" id="name" placeholder="Enter Participant Name">
-        <input type="date" id="date">
+        
+        <input type="text" id="date" placeholder="Please select date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
         
         <button onclick="generateCertificate()">Download My Certificate</button>
     </div>
