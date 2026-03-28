@@ -40,7 +40,6 @@
                 return; 
             }
 
-            // Date ko automatic format karne ka magic (e.g., 2026-03-28 se March 28, 2026 banayega)
             const dateObj = new Date(rawDate);
             const formattedDate = dateObj.toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -52,39 +51,43 @@
             const ctx = canvas.getContext('2d');
             const img = new Image();
 
-            // Image file ka naam GitHub ke hisaab se
             img.src = 'template.jpeg'; 
             
             img.onload = function() {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 
-                // 1. BLANKING (Purani details cover karna)
+                
                 ctx.fillStyle = "white";
-                ctx.fillRect(700, 680, 600, 70); 
-                ctx.fillRect(160, 1180, 450, 80);
-                ctx.fillRect(940, 870, 380, 60);
+                ctx.fillRect(700, 680, 600, 70);   
+                
+                
+                ctx.fillRect(80, 1100, 450, 100);  
+                
+                
+                ctx.fillRect(800, 850, 480, 80); 
 
-                // 2. TEXT LIKHNA
+                
                 ctx.fillStyle = '#112244'; 
                 ctx.textAlign = 'center';
 
-                // Workshop Title
+                
                 ctx.font = 'italic bold 55px Georgia, serif';
                 ctx.fillText('"Performance Analysis Using Excel and Power Query"', 1000, 725);
 
-                // Name
+                
                 ctx.font = 'bold 85px serif';
                 ctx.fillText(name.toUpperCase(), 1000, 580);
 
-                // Date (Yahan automatically format hui date print hogi)
+                
                 ctx.font = '45px serif';
                 ctx.textAlign = 'left';
-                ctx.fillText(formattedDate, 240, 1235);
+                ctx.fillText(formattedDate, 100, 1165); 
+                
                 
                 ctx.textAlign = 'center';
-                ctx.fillText(formattedDate, 1130, 915);
+                ctx.fillText(formattedDate, 1040, 905);
 
-                // 3. DOWNLOAD KARNA
+               
                 const link = document.createElement('a');
                 link.download = `Certificate_${name.replace(/\s+/g, '_')}.png`;
                 link.href = canvas.toDataURL('image/png', 1.0);
@@ -92,7 +95,7 @@
             };
             
             img.onerror = function() {
-                alert("Error: 'template.jpg' file nahi mili. Check karein file ka naam same hai ya nahi.");
+                alert("Error: Image not Found.");
             };
         }
     </script>
